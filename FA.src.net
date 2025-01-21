@@ -1,0 +1,51 @@
+************************************************************************
+* auCdl Netlist:
+* 
+* Library Name:  LAB4
+* Top Cell Name: FA
+* View Name:     schematic
+* Netlisted on:  Nov 29 09:13:05 2024
+************************************************************************
+
+.INCLUDE  /CMC/kits/cmosp18.6.13a_ic6/tsmc18/../Calibre/lvs/source.added
+*.EQUATION
+*.LDD
+*.SCALE METER
+*.MEGA
+.PARAM
+
+
+
+************************************************************************
+* Library Name: Lab3
+* Cell Name:    NAND2
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT NAND2 A B OUT VDD VSS
+*.PININFO A:I B:I OUT:O VDD:B VSS:B
+MM1 net08 B VSS VSS N l=180.0n w=WnB m=1
+MM0 OUT A net08 VSS N l=180.0n w=WnA m=1
+MM2 OUT B VDD VDD P l=180.0n w=WpB m=1
+MM3 OUT A VDD VDD P l=180.0n w=WpA m=1
+.ENDS
+
+************************************************************************
+* Library Name: LAB4
+* Cell Name:    FA
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT FA A B C Co S VDD VSS
+*.PININFO A:I B:I C:I Co:O S:O VDD:B VSS:B
+XI8 net23 net24 S VDD VSS / NAND2 WpA=19u WpB=19u WnA=19u WnB=19u
+XI7 net14 net10 Co VDD VSS / NAND2 WpA=5u WpB=5u WnA=5u WnB=5u
+XI6 net14 C net24 VDD VSS / NAND2 WpA=5u WpB=5u WnA=5u WnB=5u
+XI5 net12 net14 net23 VDD VSS / NAND2 WpA=5u WpB=5u WnA=5u WnB=5u
+XI4 net12 C net14 VDD VSS / NAND2 WpA=4u WpB=4u WnA=4u WnB=4u
+XI3 net18 net17 net12 VDD VSS / NAND2 WpA=2u WpB=2u WnA=2u WnB=2u
+XI2 net10 B net17 VDD VSS / NAND2 WpA=1u WpB=1u WnA=1u WnB=1u
+XI1 A net10 net18 VDD VSS / NAND2 WpA=1u WpB=1u WnA=1u WnB=1u
+XI0 A B net10 VDD VSS / NAND2 WpA=1u WpB=1u WnA=1u WnB=1u
+.ENDS
+
